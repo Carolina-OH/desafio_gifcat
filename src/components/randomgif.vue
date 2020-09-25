@@ -7,55 +7,54 @@ vue<template>
                         <div class="form-group row ml-5 pl-5">
                             <label class="col-sm-2 col-form-label">Titulo:</label>
                             <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" v-model="tittle">
                             </div>
                         </div>
                         <div class="form-group row ml-5 pl-5">
                             <label class="col-sm-2 col-form-label">Filtro:</label>
                             <div class="col-sm-4">
-                             <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>blur</option>
-                                <option>mono</option>
-                                <option>negative</option>
-                                <option>paint</option>
-                                <option>pixel</option>
+                             <select id="inputState" class="form-control" @change="cambioFiltro($event)">
+                                <option v-for="opt in filtros" :key="opt" :value="opt" v-text="opt"></option>
                             </select>
                             </div>
                         </div>
-                        <div class="form-group row ml-5 pl-5">
-                            <label class="col-sm-2 col-form-label">Color:</label>
-                            <div class="col-sm-4">
-                             <select id="inputState" v-model="sort" class="form-control" @change="cambioColor">
-                                <option selected>Choose...</option>
-                                <option>Blanco</option>
-                                <option>Rojo</option>
-                                <option>Amarillo</option>
-                                <option>Azul</option>
-                                <option>Verde</option>
-                                <option>Rosa</option>
-                            </select>
+                            <div class="form-group row ml-5 pl-5">
+                                <label class="col-sm-2 col-form-label">Color:</label>
+                                <div class="col-sm-4">
+                                <select id="inputState" v-model="sort" class="form-control" @change="cambioColor">
+                                    <option selected disabled>Choose...</option>
+                                    <option>Blanco</option>
+                                    <option>Rojo</option>
+                                    <option>Amarillo</option>
+                                    <option>Azul</option>
+                                    <option>Verde</option>
+                                    <option>Rosa</option>
+                                </select>
+                                </div>
+                                <span :class=
+                                "[{redbg:this.red},
+                                {whitebg:this.white},
+                                {greenbg:this.green},
+                                {yellowbg:this.yellow},
+                                {bluebg:this.blue},
+                                {pinkbg:this.pink}
+                                ]" id="circle"></span>
                             </div>
-                            <span :class=
-                            "[{redbg:this.red},
-                            {whitebg:this.white},
-                            {greenbg:this.green},
-                            {yellowbg:this.yellow},
-                            {bluebg:this.blue},
-                            {pinkbg:this.pink}
-                            ]" id="circle"></span>
-                        </div>
-                        <div class="form-group row ml-5 pl-5">
-                            <label class="col-sm-2 col-form-label">Tamaño:</label>
-                            <div class="col-sm-4">
-                            <input type="text" class="form-control">
+                            <div class="form-group row ml-5 pl-5">
+                                <label class="col-sm-2 col-form-label">Tamaño:</label>
+                                <div class="col-sm-4">
+                                <input type="text" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <button>obtener mi gatito</button>
-                    </div>
+                </div>
             </div>
-        
+                            <button @click="">obtener mi gatito</button>
     </div>
+            <div class="text-center mb-5">
+                <img 
+                :src="https://cataas.com/cat/gif/says/hola?filter=sepia&color=orange&size=100&type=or" alt="">
+            </div>
+
 </div>
 </template>
 
@@ -65,13 +64,24 @@ export default {
     // props: {},
     data: function(){
         return {
-            sort:"",
+            tittle:"",
+            sort:"Choose...",
             red:"",
             white:"",
             blue:"",
             green:"",
             pink:"",
             yellow:"",
+             myFilter:{
+                filter: "",
+            },
+            filtros:[
+            "blur",
+            "mono",
+            "negative",
+            "paint",
+            "pixel",
+            ]
         }
     },
     // computed: {},
@@ -127,6 +137,15 @@ export default {
                 
             }
             
+        },
+             cambioFiltro(e){
+            if(e.target.value==="blur"){
+                this.myFilter.filter= "blur"
+            }
+               
+
+             
+            
         }
     },
     // components: {},
@@ -166,7 +185,9 @@ export default {
     }
     button{
         width:200px;
-        margin-left:30%;
+        margin-left:45%;
+        margin-top:20px;
+        margin-bottom:20px;
     }
 
 </style>
