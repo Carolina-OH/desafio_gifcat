@@ -26,7 +26,7 @@ vue<template>
                         <div class="form-group row ml-5 pl-5">
                             <label class="col-sm-2 col-form-label">Color:</label>
                             <div class="col-sm-4">
-                             <select id="inputState" class="form-control">
+                             <select id="inputState" v-model="sort" class="form-control" @change="cambioColor">
                                 <option selected>Choose...</option>
                                 <option>Blanco</option>
                                 <option>Rojo</option>
@@ -36,7 +36,14 @@ vue<template>
                                 <option>Rosa</option>
                             </select>
                             </div>
-                            <span>color</span>
+                            <span :class=
+                            "[{redbg:this.rojo},
+                            {whitebg:this.blanco},
+                            {greenbg:this.verde},
+                            {yellowbg:this.amarillo},
+                            {bluebg:this.azul},
+                            {pinkbg:this.rosa}
+                            ]" id="circle"></span>
                         </div>
                         <div class="form-group row ml-5 pl-5">
                             <label class="col-sm-2 col-form-label">Tamaño:</label>
@@ -56,11 +63,70 @@ export default {
     name: 'randomgif',
     // props: {},
     data: function(){
-        return {}
+        return {
+            sort:"",
+            rojo:"",
+            blanco:"",
+            azul:"",
+            verde:"",
+            rosa:"",
+            amarillo:"",
+        }
     },
     // computed: {},
     methods: {
-        // -- Metodos
+        cambioColor(){
+            var data=this.sort;
+            if(data ==="Rojo"){
+            this.rojo=true
+            this.blanco=false
+            this.verde=false
+            this.amarillo=false
+            this.azul=false
+            this.rosa=false
+            }else if(data==="Blanco"){
+                this.blanco=true
+                this.rojo=false
+                this.verde=false
+                this.amarillo=false
+                this.azul=false
+                this.rosa=false
+            }else if(data==="Verde"){
+                this.verde=true
+                
+                this.blanco=false
+                this.rojo=false
+                this.amarillo=false
+                this.azul=false
+                this.rosa=false
+            }else if(data==="Amarillo"){
+                this.amarillo=true
+
+                this.verde=false
+                this.blanco=false
+                this.rojo=false
+                this.azul=false
+                this.rosa=false
+            }else if(data==="Azul"){
+                this.azul=true
+
+                this.amarillo=false
+                this.verde=false
+                this.blanco=false
+                this.rojo=false
+                this.rosa=false
+            }else if(data==="Rosa"){
+                this.rosa=true
+
+                this.amarillo=false
+                this.verde=false
+                this.blanco=false
+                this.rojo=false
+                this.azul=false
+                
+            }
+            
+        }
     },
     // components: {},
 }
@@ -75,8 +141,27 @@ export default {
         margin-left:30%;
     }
     #circle{
-        width:20px;
-        background-color:green;
+        width:40px;
         display:inline-block;
+        border-radius:100px 100px;
     }
+    .redbg{
+        background-color:red;
+    }
+    .whitebg{
+        background-color:white;
+    }
+    .greenbg{
+        background-color:green;
+    }
+    .yellowbg{
+        background-color:yellow;
+    }
+    .bluebg{
+        background-color:blue;
+    }
+    .pinkbg{
+        background-color:#FF33DD;
+    }
+
 </style>
