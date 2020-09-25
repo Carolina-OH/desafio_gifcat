@@ -37,12 +37,12 @@ vue<template>
                             </select>
                             </div>
                             <span :class=
-                            "[{redbg:this.rojo},
-                            {whitebg:this.blanco},
-                            {greenbg:this.verde},
-                            {yellowbg:this.amarillo},
-                            {bluebg:this.azul},
-                            {pinkbg:this.rosa}
+                            "[{redbg:this.red},
+                            {whitebg:this.white},
+                            {greenbg:this.green},
+                            {yellowbg:this.yellow},
+                            {bluebg:this.blue},
+                            {pinkbg:this.pink}
                             ]" id="circle"></span>
                         </div>
                         <div class="form-group row ml-5 pl-5">
@@ -51,6 +51,7 @@ vue<template>
                             <input type="text" class="form-control">
                             </div>
                         </div>
+                        <button>obtener mi gatito</button>
                     </div>
             </div>
         
@@ -65,12 +66,12 @@ export default {
     data: function(){
         return {
             sort:"",
-            rojo:"",
-            blanco:"",
-            azul:"",
-            verde:"",
-            rosa:"",
-            amarillo:"",
+            red:"",
+            white:"",
+            blue:"",
+            green:"",
+            pink:"",
+            yellow:"",
         }
     },
     // computed: {},
@@ -78,51 +79,51 @@ export default {
         cambioColor(){
             var data=this.sort;
             if(data ==="Rojo"){
-            this.rojo=true
-            this.blanco=false
-            this.verde=false
-            this.amarillo=false
-            this.azul=false
-            this.rosa=false
+            this.red=true
+            this.white=false
+            this.green=false
+            this.yellow=false
+            this.blue=false
+            this.pink=false
             }else if(data==="Blanco"){
-                this.blanco=true
-                this.rojo=false
-                this.verde=false
-                this.amarillo=false
-                this.azul=false
-                this.rosa=false
+                this.white=true
+                this.red=false
+                this.green=false
+                this.yellow=false
+                this.blue=false
+                this.pink=false
             }else if(data==="Verde"){
-                this.verde=true
+                this.green=true
                 
-                this.blanco=false
-                this.rojo=false
-                this.amarillo=false
-                this.azul=false
-                this.rosa=false
+                this.white=false
+                this.red=false
+                this.yellow=false
+                this.blue=false
+                this.pink=false
             }else if(data==="Amarillo"){
-                this.amarillo=true
+                this.yellow=true
 
-                this.verde=false
-                this.blanco=false
-                this.rojo=false
-                this.azul=false
-                this.rosa=false
+                this.green=false
+                this.white=false
+                this.red=false
+                this.blue=false
+                this.pink=false
             }else if(data==="Azul"){
-                this.azul=true
+                this.blue=true
 
-                this.amarillo=false
-                this.verde=false
-                this.blanco=false
-                this.rojo=false
-                this.rosa=false
+                this.yellow=false
+                this.green=false
+                this.white=false
+                this.red=false
+                this.pink=false
             }else if(data==="Rosa"){
-                this.rosa=true
+                this.pink=true
 
-                this.amarillo=false
-                this.verde=false
-                this.blanco=false
-                this.rojo=false
-                this.azul=false
+                this.yellow=false
+                this.green=false
+                this.white=false
+                this.red=false
+                this.blue=false
                 
             }
             
@@ -162,6 +163,10 @@ export default {
     }
     .pinkbg{
         background-color:#FF33DD;
+    }
+    button{
+        width:200px;
+        margin-left:30%;
     }
 
 </style>
