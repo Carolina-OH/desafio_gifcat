@@ -4,13 +4,13 @@ vue<template>
         <h1 class="text-center mt-5 mb-5"> Random Gif Cat</h1>
             <div id="form">
                 <div class="p-5 card col-sm-6" id="card">
-                        <div class="form-group row ml-5 pl-5">
+                        <div class="form-group row ml-2 pl-5">
                             <label class="col-sm-2 col-form-label">Titulo:</label>
                             <div class="col-sm-4">
-                            <input type="text" class="form-control" v-model="tittle">
+                            <input type="text" class="form-control" v-model="tittle" ref="titulo">
                             </div>
                         </div>
-                        <div class="form-group row ml-5 pl-5">
+                        <div class="form-group row ml-2 pl-5">
                             <label class="col-sm-2 col-form-label">Filtro:</label>
                             <div class="col-sm-4">
                              <select id="inputState" class="form-control" @change="cambioFiltro($event)">
@@ -18,42 +18,29 @@ vue<template>
                             </select>
                             </div>
                         </div>
-                            <div class="form-group row ml-5 pl-5">
+                            <div class="form-group row ml-2 pl-5">
                                 <label class="col-sm-2 col-form-label">Color:</label>
                                 <div class="col-sm-4">
-                                <select id="inputState" v-model="sort" class="form-control" @change="cambioColor">
-                                    <option selected disabled>Choose...</option>
-                                    <option>Blanco</option>
-                                    <option>Rojo</option>
-                                    <option>Amarillo</option>
-                                    <option>Azul</option>
-                                    <option>Verde</option>
-                                    <option>Rosa</option>
+                                <select id="inputState" class="form-control" @change="cambioColor($event)">
+                                   <!-- <option selected disabled>Choose...</option>!-->
+                                    <option v-for="color in colors" :key="color.color" :value="color.value" v-text="color.color"></option>
                                 </select>
                                 </div>
-                                <span :class=
-                                "[{redbg:this.red},
-                                {whitebg:this.white},
-                                {greenbg:this.green},
-                                {yellowbg:this.yellow},
-                                {bluebg:this.blue},
-                                {pinkbg:this.pink}
-                                ]" id="circle"></span>
+                                <span :style="style" id="circle"></span>
                             </div>
-                            <div class="form-group row ml-5 pl-5">
+                            <div class="form-group row ml-2 pl-5">
                                 <label class="col-sm-2 col-form-label">Tamaño:</label>
                                 <div class="col-sm-4">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="size" ref="size">
                                 </div>
                             </div>
                 </div>
             </div>
-                            <button @click="">obtener mi gatito</button>
+                            <button @click="ObtenerGato">obtener mi gatito</button>
     </div>
-            <div class="text-center mb-5">
-                <img 
-                :src="https://cataas.com/cat/gif/says/hola?filter=sepia&color=orange&size=100&type=or" alt="">
-            </div>
+                            <div class="text-center mb-5">
+                                <img :src="url">
+                            </div>
 
 </div>
 </template>
@@ -65,13 +52,7 @@ export default {
     data: function(){
         return {
             tittle:"",
-            sort:"Choose...",
-            red:"",
-            white:"",
-            blue:"",
-            green:"",
-            pink:"",
-            yellow:"",
+            size:"",
              myFilter:{
                 filter: "",
             },
@@ -80,73 +61,67 @@ export default {
             "mono",
             "negative",
             "paint",
-            "pixel",
-            ]
+            "sepia",
+            ],
+            selected:"",
+            url:"",
+            colors:[
+                {color:"Blanco", value:"white" },
+                {color:"Verde", value:"green"},
+                {color:"Rojo",value:"red"},
+                {color:"Azul",value:"blue"},
+                {color:"Amarillo",value:"yellow"},
+                {color:"Morado",value:"purple"}
+
+            ],
+            style:{
+                background:""
+            }     
         }
     },
     // computed: {},
     methods: {
-        cambioColor(){
-            var data=this.sort;
-            if(data ==="Rojo"){
-            this.red=true
-            this.white=false
-            this.green=false
-            this.yellow=false
-            this.blue=false
-            this.pink=false
-            }else if(data==="Blanco"){
-                this.white=true
-                this.red=false
-                this.green=false
-                this.yellow=false
-                this.blue=false
-                this.pink=false
-            }else if(data==="Verde"){
-                this.green=true
-                
-                this.white=false
-                this.red=false
-                this.yellow=false
-                this.blue=false
-                this.pink=false
-            }else if(data==="Amarillo"){
-                this.yellow=true
-
-                this.green=false
-                this.white=false
-                this.red=false
-                this.blue=false
-                this.pink=false
-            }else if(data==="Azul"){
-                this.blue=true
-
-                this.yellow=false
-                this.green=false
-                this.white=false
-                this.red=false
-                this.pink=false
-            }else if(data==="Rosa"){
-                this.pink=true
-
-                this.yellow=false
-                this.green=false
-                this.white=false
-                this.red=false
-                this.blue=false
-                
-            }
-            
+        cambioColor(e){
+            this.style.background=e.target.value            
         },
-             cambioFiltro(e){
-            if(e.target.value==="blur"){
-                this.myFilter.filter= "blur"
-            }
-               
-
-             
+            cambioFiltro(e){
+            var response= e.target.value
+            if(response==="blur"){
+            this.selected="blur"
             
-        }
+            console.log(this.selected)
+            }else if(response==="mono"){
+                this.selected="mono"
+                console.log(this.selected)
+                
+            }else if(response==="negative"){
+                this.selected="negative"
+                console.log(this.selected)
+              
+            }else if(response==="paint"){
+                this.selected="paint"
+                console.log(this.selected)
+               
+            }else if(response==="sepia"){
+                this.selected="sepia"
+                console.log(this.selected)
+
+            }
+                return 
+                selected,url
+            },
+            ObtenerGato(){
+                if (this.size>100 || this.size<1 || isNaN(this.size)){
+                    alert("Ingrese un número entre 1 y 100")
+                    this.$refs.size.value=""
+                    this.$refs.size.focus()
+                }else if(this.tittle===""){
+                        alert("Debe ingresar un titulo")
+                        this.$refs.titulo.focus()
+                }
+                else
+                this.url=`https://cataas.com/cat/gif/says/${this.tittle}?filter=${this.selected}&color=${this.style.background}&size=${this.size}&type=or`
+            }
     },
     // components: {},
 }
@@ -165,27 +140,10 @@ export default {
         display:inline-block;
         border-radius:100px 100px;
     }
-    .redbg{
-        background-color:red;
-    }
-    .whitebg{
-        background-color:white;
-    }
-    .greenbg{
-        background-color:green;
-    }
-    .yellowbg{
-        background-color:yellow;
-    }
-    .bluebg{
-        background-color:blue;
-    }
-    .pinkbg{
-        background-color:#FF33DD;
-    }
+
     button{
         width:200px;
-        margin-left:45%;
+        margin-left:40%;
         margin-top:20px;
         margin-bottom:20px;
     }
